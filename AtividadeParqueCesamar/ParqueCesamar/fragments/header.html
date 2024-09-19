@@ -1,0 +1,65 @@
+<header th:fragment="header">
+
+    <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a sec:authorize="hasAnyRole('ADMIN')" class="navbar-brand" href="/vendas/listaVendas">Clientes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a sec:authorize="hasAnyRole('ADMIN')" class="navbar-brand" href="/vendas/listarVendasRegistradas">Lista de Vendas</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <form th:action="@{/produtos/buscarProdutosParaOCarrinho}" method="get" sec:authorize="isAuthenticated()">
+                <button class="btn btn-outline-primary fw-bold" type="submit">SALDÃO DE ESTOQUE</button>
+            </form>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <form th:action="@{/vendas/buscarVendasPorClienteLogado}" method="get" sec:authorize="isAuthenticated()">
+                <button class="btn btn-outline-primary fw-bold" type="submit">Compras do Cliente</button>
+            </form>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <form th:action="@{/buscarCadastroUsuario}" method="get" sec:authorize="isAuthenticated()">
+                <button class="btn btn-outline-primary fw-bold" type="submit">Dados do Usuário</button>
+            </form>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"></a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cadastros
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/cadastrarUsuarioPessoaFisica">CADASTRO DE PESSOA FÍSICA</a></li>
+                            <li><a class="dropdown-item" href="/cadastrarUsuarioPessoaJuridica">CADASTRO DE PESSOA JURÍDICA</a></li>
+                            <li sec:authorize="hasAnyRole('ADMIN')"><a class="dropdown-item" href="/produtos/inserirProduto">CADASTRO DE PRODUTO</a></li>
+                        </ul>
+                    </li>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN')" >
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           Listagens
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/pessoafisica/listarPessoasFisicas">PESSOA FÍSICA</a></li>
+                            <li><a class="dropdown-item" href="/pessoajuridica/listarPessoasJuridicas">PESSOA JURÍDICA</a></li>
+                            <li ><a class="dropdown-item" href="/produtos/buscarProdutosRegistrados">LISTAGEM DE PRODUTO</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                        <form th:action="@{/compraCliente/carrinho}" method="get" sec:authorize="isAuthenticated()">
+                            <button class="btn btn-outline-success fw-bold" type="submit">Carrinho</button>
+                        </form>
+                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+            <div>
+                <form th:action="@{/logout}" method="POST" sec:authorize="isAuthenticated()">
+                    <button class="btn btn-outline-danger" type="submit">SAIR DO SISTEMA</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+</header>
